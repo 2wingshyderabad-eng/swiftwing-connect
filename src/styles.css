@@ -5,19 +5,37 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * XpresWings design system.
- * Brand: deep navy (#12263A) + express orange (#E2582A), from the logo.
- * Fonts: Space Grotesk (display) + DM Sans (body), loaded via <link> in __root.
+ * Trusted Courier Service's design system — full rules in docs/design-system.md.
+ *
+ * Layer 1 (--xw-*): foundation tokens. Raw values live here and nowhere else.
+ * Layer 2 (--primary, --brand, --surface-dark, ...): semantic aliases consumed by
+ * Tailwind utilities and components. Components must reference layer 2 only.
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --font-sans: var(--xw-font-family-stack);
+  --font-display: var(--xw-font-family-stack);
+
+  --text-body-sm: var(--xw-font-size-sm);
+  --text-body-md: var(--xw-font-size-md);
+  --text-body-lg: var(--xw-font-size-lg);
+  --text-body-xl: var(--xw-font-size-xl);
+  --text-body-2xl: var(--xw-font-size-2xl);
+  --text-body-3xl: var(--xw-font-size-3xl);
+  --text-body-4xl: var(--xw-font-size-4xl);
+
+  --radius-xs: var(--xw-radius-xs);
+  --radius-sm: var(--xw-radius-sm);
+  --radius-md: var(--xw-radius-md);
+  --radius-lg: var(--xw-radius-lg);
+  --radius-xl: var(--xw-radius-xl);
+  --radius-2xl: var(--xw-radius-2xl);
+  /* Deprecated aliases: the scale stops at 2xl. */
+  --radius-3xl: var(--xw-radius-2xl);
+  --radius-4xl: var(--xw-radius-2xl);
+
+  --shadow-brand: var(--xw-shadow-1);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -38,44 +56,108 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-navy: var(--navy);
-  --color-navy-deep: var(--navy-deep);
-  --color-navy-soft: var(--navy-soft);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-darker: var(--surface-darker);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
-}
-
-@theme {
-  --font-display: "Space Grotesk", sans-serif;
-  --font-sans: "DM Sans", sans-serif;
+  --color-brand-strong: var(--brand-strong);
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.99 0.002 240);
-  --foreground: oklch(0.24 0.05 245);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.05 245);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.05 245);
-  --primary: oklch(0.63 0.19 38);
-  --primary-foreground: oklch(0.99 0.005 60);
-  --secondary: oklch(0.95 0.01 245);
-  --secondary-foreground: oklch(0.24 0.05 245);
-  --muted: oklch(0.96 0.008 245);
-  --muted-foreground: oklch(0.5 0.03 245);
-  --accent: oklch(0.95 0.03 55);
-  --accent-foreground: oklch(0.35 0.1 40);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0.005 60);
-  --border: oklch(0.91 0.01 245);
-  --input: oklch(0.91 0.01 245);
-  --ring: oklch(0.63 0.19 38);
-  --navy: oklch(0.24 0.05 245);
-  --navy-deep: oklch(0.18 0.045 248);
-  --navy-soft: oklch(0.32 0.055 245);
-  --brand: oklch(0.63 0.19 38);
-  --brand-soft: oklch(0.95 0.04 55);
+  /* ---------- Layer 1: foundations ---------- */
+  --xw-font-family-primary: "Poppins";
+  --xw-font-family-stack: "Poppins", sans-serif;
+  --xw-font-size-base: 16px;
+  --xw-font-weight-base: 400;
+  --xw-line-height-base: 24px;
+
+  /* font.size.xs (0px) is an extraction artifact and is intentionally not emitted. */
+  --xw-font-size-sm: 12px;
+  --xw-font-size-md: 13.5px;
+  --xw-font-size-lg: 14px;
+  --xw-font-size-xl: 15px;
+  --xw-font-size-2xl: 16px;
+  --xw-font-size-3xl: 18px;
+  --xw-font-size-4xl: 19px;
+
+  --xw-color-text-primary: #212529;
+  --xw-color-text-secondary: #ffffff;
+  --xw-color-text-inverse: #111214;
+  --xw-color-surface-base: #000000;
+  --xw-color-surface-muted: #f58220;
+  --xw-color-surface-strong: #f4f4f4;
+
+  /* Derived tokens (docs/design-system.md §2.3). Each exists to meet a contrast rule. */
+  --xw-color-brand-strong: #ac5407;
+  --xw-color-brand-soft: color-mix(in srgb, var(--xw-color-surface-muted) 12%, #ffffff);
+  --xw-color-text-muted: color-mix(in srgb, var(--xw-color-text-primary) 72%, #ffffff);
+  --xw-color-border-subtle: color-mix(in srgb, var(--xw-color-text-primary) 12%, #ffffff);
+  --xw-color-border-control: color-mix(in srgb, var(--xw-color-text-primary) 55%, #ffffff);
+  --xw-color-feedback-error: #b42318;
+
+  --xw-space-1: 2px;
+  --xw-space-2: 4px;
+  --xw-space-3: 5px;
+  --xw-space-4: 6px;
+  --xw-space-5: 8px;
+  --xw-space-6: 10px;
+  --xw-space-7: 12px;
+  --xw-space-8: 14px;
+
+  --xw-radius-xs: 4px;
+  --xw-radius-sm: 5px;
+  --xw-radius-md: 8px;
+  --xw-radius-lg: 12px;
+  --xw-radius-xl: 18px;
+  --xw-radius-2xl: 20px;
+  --xw-radius-pill: 999px;
+
+  --xw-shadow-1: rgb(172, 84, 7) 0px 2px 0px 0px;
+
+  --xw-motion-duration-instant: 150ms;
+  --xw-motion-duration-fast: 180ms;
+  --xw-motion-duration-normal: 200ms;
+  --xw-motion-duration-slow: 250ms;
+  --xw-motion-duration-slower: 300ms;
+  --xw-motion-duration-step6: 500ms;
+  --xw-motion-duration-step7: 550ms;
+  --xw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---------- Layer 2: semantic aliases ---------- */
+  --radius: var(--xw-radius-lg);
+
+  --background: var(--xw-color-text-secondary);
+  --foreground: var(--xw-color-text-primary);
+  --card: var(--xw-color-text-secondary);
+  --card-foreground: var(--xw-color-text-primary);
+  --popover: var(--xw-color-text-secondary);
+  --popover-foreground: var(--xw-color-text-primary);
+
+  /* White on brand orange is 2.6:1 and fails AA, so brand fills carry inverse text. */
+  --primary: var(--xw-color-surface-muted);
+  --primary-foreground: var(--xw-color-text-inverse);
+
+  --secondary: var(--xw-color-surface-strong);
+  --secondary-foreground: var(--xw-color-text-primary);
+  --muted: var(--xw-color-surface-strong);
+  --muted-foreground: var(--xw-color-text-muted);
+  --accent: var(--xw-color-brand-soft);
+  --accent-foreground: var(--xw-color-text-inverse);
+  --destructive: var(--xw-color-feedback-error);
+  --destructive-foreground: var(--xw-color-text-secondary);
+  --border: var(--xw-color-border-subtle);
+  --input: var(--xw-color-border-control);
+  --ring: var(--xw-color-brand-strong);
+
+  --surface-dark: var(--xw-color-text-inverse);
+  --surface-darker: var(--xw-color-surface-base);
+  --brand: var(--xw-color-surface-muted);
+  --brand-soft: var(--xw-color-brand-soft);
+  --brand-strong: var(--xw-color-brand-strong);
+
+  /* Context-sensitive: flipped by the `on-dark` utility. */
+  --focus-ring: var(--xw-color-brand-strong);
+  --section-label-color: var(--xw-color-brand-strong);
 }
 
 @layer base {
@@ -87,47 +169,98 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: var(--xw-font-size-base);
+    font-weight: var(--xw-font-weight-base);
+    line-height: var(--xw-line-height-base);
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Apply to any container whose background is surface-dark, surface-darker, or a dark image overlay. */
+@utility on-dark {
+  --focus-ring: var(--xw-color-surface-muted);
+  --section-label-color: var(--xw-color-surface-muted);
 }
 
 @utility text-balance {
   text-wrap: balance;
 }
 
+@utility skip-link {
+  position: absolute;
+  left: var(--xw-space-5);
+  top: var(--xw-space-5);
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: var(--xw-radius-pill);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: var(--xw-space-6) var(--xw-space-8);
+  font-weight: 600;
+  transition: transform var(--xw-motion-duration-fast) var(--xw-motion-easing-standard);
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}
+
 @utility hero-overlay {
   background: linear-gradient(
     100deg,
-    color-mix(in oklab, var(--navy-deep) 92%, transparent) 0%,
-    color-mix(in oklab, var(--navy-deep) 70%, transparent) 45%,
-    color-mix(in oklab, var(--navy-deep) 25%, transparent) 100%
+    color-mix(in oklab, var(--surface-darker) 92%, transparent) 0%,
+    color-mix(in oklab, var(--surface-darker) 70%, transparent) 45%,
+    color-mix(in oklab, var(--surface-darker) 25%, transparent) 100%
   );
 }
 
 @utility section-label {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
+  gap: var(--xw-space-5);
+  font-size: var(--xw-font-size-sm);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--brand);
+  color: var(--section-label-color);
 }
 
 @utility card-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform var(--xw-motion-duration-slower) var(--xw-motion-easing-standard),
+    box-shadow var(--xw-motion-duration-slower) var(--xw-motion-easing-standard);
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 24px 48px -16px color-mix(in oklab, var(--navy) 28%, transparent);
+    box-shadow: 0 24px 48px -16px color-mix(in oklab, var(--surface-dark) 28%, transparent);
   }
 }
 
 @keyframes kenburns {
-  from { transform: scale(1) translate(0, 0); }
-  to { transform: scale(1.12) translate(-1.5%, -1.5%); }
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.12) translate(-1.5%, -1.5%);
+  }
 }
