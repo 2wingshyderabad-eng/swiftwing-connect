@@ -8,7 +8,7 @@ const brandStripUrl =
 export function SellerCoverageBanner() {
   return (
     <div className="seller-banner-page">
-      <section className="seller-banner-shell" aria-labelledby="seller-banner-title">
+      <section className="seller-banner-card" aria-labelledby="seller-banner-title">
         <div className="seller-banner-copy">
           <p className="seller-banner-title" id="seller-banner-title">
             <span>Trusted by </span>

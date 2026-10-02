@@ -315,19 +315,31 @@
   }
 }
 
-/* Hero section (src/components/HeroSection.tsx) — XpressBees-style carousel + track widget. */
+/* Hero section (src/components/HeroSection.tsx). */
 @layer components {
   .hero-xb {
     position: relative;
     overflow: hidden;
+    min-height: clamp(32rem, 72vh, 44rem);
     background: var(--surface-darker);
     color: #ffffff;
   }
 
-  .hero-xb__backdrop {
+  .hero-xb__backdrops {
     position: absolute;
     inset: 0;
     pointer-events: none;
+  }
+
+  .hero-xb__backdrop-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 900ms var(--xw-motion-easing-standard);
+  }
+
+  .hero-xb__backdrop-layer[data-active="true"] {
+    opacity: 1;
   }
 
   .hero-xb__backdrop-image {
@@ -335,6 +347,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    transform: scale(1.02);
+  }
+
+  .hero-xb__backdrop-layer[data-active="true"] .hero-xb__backdrop-image {
+    animation: hero-xb-kenburns 8s var(--xw-motion-easing-standard) forwards;
   }
 
   .hero-xb__backdrop-overlay {
@@ -342,21 +360,26 @@
     inset: 0;
     background:
       linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--surface-darker) 92%, transparent) 0%,
-        color-mix(in oklab, var(--surface-darker) 72%, transparent) 42%,
-        color-mix(in oklab, var(--surface-darker) 45%, transparent) 100%
+        105deg,
+        color-mix(in oklab, var(--surface-darker) 86%, transparent) 0%,
+        color-mix(in oklab, var(--surface-darker) 58%, transparent) 34%,
+        color-mix(in oklab, var(--surface-darker) 18%, transparent) 72%,
+        color-mix(in oklab, var(--surface-darker) 8%, transparent) 100%
       ),
       linear-gradient(
         180deg,
-        color-mix(in oklab, var(--surface-darker) 35%, transparent) 0%,
-        color-mix(in oklab, var(--surface-darker) 88%, transparent) 100%
+        color-mix(in oklab, var(--surface-darker) 42%, transparent) 0%,
+        transparent 28%,
+        color-mix(in oklab, var(--surface-darker) 38%, transparent) 100%
       );
   }
 
   .hero-xb__main {
     position: relative;
-    padding: 7.5rem 0 5rem;
+    display: flex;
+    align-items: center;
+    min-height: inherit;
+    padding: 7.5rem 0 5.5rem;
   }
 
   .hero-xb__container {
@@ -372,24 +395,8 @@
     }
   }
 
-  .hero-xb__container--hero {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    min-height: 22rem;
-  }
-
-  .hero-xb__main .hero-xb__container {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    min-height: 22rem;
-  }
-
   .hero-xb__content {
-    flex: 1 1 34rem;
-    min-width: 0;
-    max-width: 38rem;
+    max-width: 40rem;
   }
 
   .hero-xb__badge {
@@ -415,6 +422,8 @@
     line-height: 1.08;
     letter-spacing: -0.03em;
     color: #ffffff;
+    text-wrap: balance;
+    text-shadow: 0 2px 28px color-mix(in oklab, #000000 42%, transparent);
   }
 
   .hero-xb__title-accent {
@@ -424,9 +433,10 @@
   .hero-xb__description {
     max-width: 34rem;
     margin: 1rem 0 0;
-    color: color-mix(in oklab, #ffffff 78%, transparent);
+    color: color-mix(in oklab, #ffffff 90%, transparent);
     font-size: clamp(0.95rem, 1.6vw, 1.05rem);
     line-height: 1.65;
+    text-shadow: 0 1px 18px color-mix(in oklab, #000000 35%, transparent);
   }
 
   .hero-xb__dots {
@@ -453,65 +463,47 @@
     background: var(--primary);
   }
 
-  .hero-xb__visual {
-    position: relative;
-    flex: 1 1 28rem;
-    min-width: 0;
-    min-height: 18rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-xb__slide-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    max-width: 35rem;
-    height: auto;
-    margin-inline: auto;
-    object-fit: contain;
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-    transition:
-      opacity var(--xw-motion-duration-step7) var(--xw-motion-easing-standard),
-      transform var(--xw-motion-duration-step7) var(--xw-motion-easing-standard);
-    filter: drop-shadow(0 24px 40px color-mix(in oklab, var(--surface-darker) 45%, transparent));
-  }
-
-  .hero-xb__slide-image[data-active="true"] {
-    position: relative;
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
   @media (max-width: 980px) {
     .hero-xb__main {
       padding-top: 6.5rem;
-    }
-
-    .hero-xb__main .hero-xb__container {
-      flex-direction: column;
-      align-items: stretch;
-      min-height: auto;
-    }
-
-    .hero-xb__visual {
-      min-height: 14rem;
-    }
-
-    .hero-xb__slide-image,
-    .hero-xb__slide-image[data-active="true"] {
-      position: absolute;
-      max-width: 100%;
     }
   }
 
   @media (max-width: 640px) {
     .hero-xb__main {
       padding-top: 5.5rem;
-      padding-bottom: 3rem;
+      padding-bottom: 3.5rem;
     }
+
+    .hero-xb__backdrop-overlay {
+      background:
+        linear-gradient(
+          180deg,
+          color-mix(in oklab, var(--surface-darker) 88%, transparent) 0%,
+          color-mix(in oklab, var(--surface-darker) 72%, transparent) 42%,
+          color-mix(in oklab, var(--surface-darker) 52%, transparent) 100%
+        );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-xb__backdrop-layer {
+      transition-duration: 0.01ms;
+    }
+
+    .hero-xb__backdrop-layer[data-active="true"] .hero-xb__backdrop-image {
+      animation: none;
+      transform: none;
+    }
+  }
+}
+
+@keyframes hero-xb-kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.08);
   }
 }
 
@@ -545,52 +537,64 @@
   .seller-banner-page {
     overflow: hidden;
     background: #ffffff;
-  }
-
-  .seller-banner-shell {
-    margin-inline: auto;
-    max-width: 80rem;
-    padding: 4rem 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+    padding: 3.5rem 1rem 0;
   }
 
   @media (min-width: 640px) {
-    .seller-banner-shell {
+    .seller-banner-page {
       padding-inline: 1.5rem;
     }
   }
 
-  @media (min-width: 1024px) {
-    .seller-banner-shell {
-      padding-bottom: 3rem;
+  .seller-banner-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border-radius: clamp(1.5rem, 3vw, 2rem);
+    background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      color-mix(in oklab, var(--primary) 82%, var(--brand-strong)) 100%
+    );
+    box-shadow: 0 28px 56px -24px color-mix(in oklab, var(--primary) 55%, transparent);
+  }
+
+  @media (min-width: 900px) {
+    .seller-banner-card {
+      grid-template-columns: minmax(18rem, 0.95fr) minmax(0, 1.15fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      padding: clamp(2.5rem, 4vw, 3.75rem) clamp(2rem, 4vw, 3.5rem);
     }
   }
 
   .seller-banner-copy {
-    max-width: 34rem;
+    max-width: 30rem;
   }
 
   .seller-banner-title {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-size: clamp(1.85rem, 4.2vw, 2.85rem);
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.12;
     letter-spacing: -0.02em;
-    color: var(--foreground);
+    color: #ffffff;
   }
 
   .seller-banner-title strong {
-    color: var(--primary);
+    color: #ffffff;
   }
 
   .seller-banner-description {
     margin-top: 1rem;
-    max-width: 28rem;
-    font-size: 1.0625rem;
+    max-width: 26rem;
+    font-size: clamp(0.98rem, 1.8vw, 1.0625rem);
     line-height: 1.65;
-    color: var(--muted-foreground);
+    color: color-mix(in oklab, #ffffff 88%, transparent);
   }
 
   .seller-banner-button {
@@ -600,17 +604,20 @@
     margin-top: 1.75rem;
     min-height: 3rem;
     border-radius: var(--xw-radius-pill);
-    background: var(--primary);
+    background: #ffffff;
     padding: 0.75rem 1.75rem;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--primary-foreground);
-    box-shadow: 0 16px 32px -12px color-mix(in oklab, var(--primary) 45%, transparent);
-    transition: transform var(--xw-motion-duration-slower) var(--xw-motion-easing-standard);
+    color: var(--primary);
+    box-shadow: 0 12px 24px -10px color-mix(in oklab, #000000 28%, transparent);
+    transition:
+      transform var(--xw-motion-duration-slower) var(--xw-motion-easing-standard),
+      box-shadow var(--xw-motion-duration-slower) var(--xw-motion-easing-standard);
   }
 
   .seller-banner-button:hover {
     transform: scale(1.03);
+    box-shadow: 0 16px 28px -10px color-mix(in oklab, #000000 32%, transparent);
   }
 
   .seller-map-figure {
@@ -621,25 +628,27 @@
     width: 100%;
     min-width: 0;
     overflow: hidden;
-    padding: clamp(1rem, 3vw, 2rem);
-    border: 1px solid color-mix(in oklab, var(--foreground) 8%, #ffffff);
-    border-radius: var(--xw-radius-xl);
-    background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
-    box-shadow: 0 18px 48px -28px color-mix(in oklab, var(--surface-dark) 28%, transparent);
+  }
+
+  @media (min-width: 900px) {
+    .seller-map-figure {
+      justify-content: flex-end;
+    }
   }
 
   .seller-map {
     display: block;
     width: 100%;
-    max-width: 42rem;
+    max-width: 36rem;
     min-width: 0;
     height: auto;
     object-fit: contain;
   }
 
   .seller-brands {
-    padding: 1.5rem 0 3.5rem;
-    border-top: 1px solid color-mix(in oklab, var(--foreground) 8%, #ffffff);
+    max-width: 80rem;
+    margin-inline: auto;
+    padding: 2rem 0 3.5rem;
     background: #ffffff;
   }
 
@@ -996,5 +1005,103 @@
     .metrics-grid {
       grid-template-columns: 1fr;
     }
+  }
+}
+
+/* Floating WhatsApp button (src/components/WhatsAppFloatingButton.tsx). */
+@layer components {
+  .whatsapp-fab {
+    position: fixed;
+    right: clamp(1rem, 3vw, 1.5rem);
+    bottom: clamp(1rem, 3vw, 1.5rem);
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: var(--xw-radius-pill);
+    color: #ffffff;
+    text-decoration: none;
+    animation: whatsapp-fab-float 3s ease-in-out infinite;
+  }
+
+  .whatsapp-fab__button {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(145deg, #25d366 0%, #128c7e 100%);
+    box-shadow:
+      0 10px 24px color-mix(in oklab, #128c7e 42%, transparent),
+      0 2px 8px color-mix(in oklab, #000000 18%, transparent);
+    transition:
+      transform var(--xw-motion-duration-fast) var(--xw-motion-easing-standard),
+      box-shadow var(--xw-motion-duration-fast) var(--xw-motion-easing-standard);
+  }
+
+  .whatsapp-fab__icon-svg {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .whatsapp-fab__pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #25d366;
+    animation: whatsapp-fab-pulse 2.4s ease-out infinite;
+  }
+
+  .whatsapp-fab:hover .whatsapp-fab__button,
+  .whatsapp-fab:focus-visible .whatsapp-fab__button {
+    transform: scale(1.08);
+    box-shadow:
+      0 14px 28px color-mix(in oklab, #128c7e 48%, transparent),
+      0 4px 12px color-mix(in oklab, #000000 22%, transparent);
+  }
+
+  .whatsapp-fab:focus-visible {
+    outline: 2px solid color-mix(in oklab, #25d366 70%, #ffffff);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-fab,
+    .whatsapp-fab__pulse {
+      animation: none;
+    }
+  }
+}
+
+@keyframes whatsapp-fab-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes whatsapp-fab-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
   }
 }

@@ -13,19 +13,10 @@ type HeroSlide = {
   description: string;
   image: string;
   imageAlt: string;
+  imagePosition?: string;
 };
 
 const heroSlides: HeroSlide[] = [
-  {
-    badge: "International Courier",
-    title: "Reliable ",
-    highlight: "Global Shipping",
-    suffix: " to 220+ Countries",
-    description:
-      "Door-to-door international courier with safe handling, secure packing, and customs support end to end.",
-    image: heroCargo,
-    imageAlt: "Cargo aircraft over an international shipping port",
-  },
   {
     badge: "Domestic Courier",
     title: "Fast ",
@@ -34,7 +25,8 @@ const heroSlides: HeroSlide[] = [
     description:
       "Documents, parcels, and bulk shipments — picked up from your doorstep and delivered on time.",
     image: serviceDoorstep,
-    imageAlt: "Courier delivering a parcel at a doorstep",
+    imageAlt: "XpresWings courier delivering a parcel at a doorstep",
+    imagePosition: "68% center",
   },
   {
     badge: "Professional Packing",
@@ -44,7 +36,19 @@ const heroSlides: HeroSlide[] = [
     description:
       "Fragile, valuable, and odd-size items packed by trained staff before they leave your door.",
     image: servicePacking,
-    imageAlt: "Professional packing of a courier parcel",
+    imageAlt: "XpresWings team professionally packing a courier parcel",
+    imagePosition: "55% center",
+  },
+  {
+    badge: "International Courier",
+    title: "Reliable ",
+    highlight: "Global Shipping",
+    suffix: " to 220+ Countries",
+    description:
+      "Door-to-door international courier with safe handling, secure packing, and customs support end to end.",
+    image: globalNetwork,
+    imageAlt: "Global delivery network spanning 220+ countries",
+    imagePosition: "center center",
   },
   {
     badge: "Global Network",
@@ -53,8 +57,9 @@ const heroSlides: HeroSlide[] = [
     suffix: ".",
     description:
       "USA, UK, Canada, Australia, UAE, Singapore, Europe, and every corner of India — one courier partner.",
-    image: globalNetwork,
-    imageAlt: "Global delivery network map",
+    image: heroCargo,
+    imageAlt: "Cargo aircraft over an international shipping port at sunset",
+    imagePosition: "72% 42%",
   },
 ];
 
@@ -73,9 +78,23 @@ export function HeroSection() {
 
   return (
     <section id="top" className="hero-xb" aria-label="XpresWings courier services">
-      <div className="hero-xb__backdrop" aria-hidden="true">
-        <img src={heroCargo} alt="" className="hero-xb__backdrop-image" />
-        <div className="hero-xb__backdrop-overlay" />
+      <div className="hero-xb__backdrops" aria-hidden="true">
+        {heroSlides.map((item, index) => (
+          <div
+            key={item.badge}
+            className="hero-xb__backdrop-layer"
+            data-active={index === activeSlide}
+          >
+            <img
+              src={item.image}
+              alt=""
+              className="hero-xb__backdrop-image"
+              style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+            <div className="hero-xb__backdrop-overlay" />
+          </div>
+        ))}
       </div>
 
       <div className="hero-xb__main">
@@ -96,7 +115,7 @@ export function HeroSection() {
                   type="button"
                   role="tab"
                   aria-selected={index === activeSlide}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to slide ${index + 1}: ${item.badge}`}
                   className="hero-xb__dot"
                   data-active={index === activeSlide}
                   onClick={() => setActiveSlide(index)}
@@ -104,21 +123,12 @@ export function HeroSection() {
               ))}
             </div>
           </div>
-
-          <div className="hero-xb__visual" aria-hidden="true">
-            {heroSlides.map((item, index) => (
-              <img
-                key={item.badge}
-                src={item.image}
-                alt={item.imageAlt}
-                className="hero-xb__slide-image"
-                data-active={index === activeSlide}
-                loading={index === 0 ? "eager" : "lazy"}
-              />
-            ))}
-          </div>
         </div>
       </div>
+
+      <p className="sr-only" aria-live="polite">
+        {slide.imageAlt}
+      </p>
     </section>
   );
 }
