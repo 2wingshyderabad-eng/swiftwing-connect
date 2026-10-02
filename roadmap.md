@@ -1,9 +1,14 @@
 # Roadmap
 
 - [x] Lock brand palette from XpresWings logo (navy + orange)
-- [ ] Add logo asset to project
-- [ ] Generate premium hero/section imagery
-- [ ] Design system in src/styles.css (navy/orange, premium fonts)
-- [ ] Build index page: hero, services, why-us, process, coverage, testimonials, contact, footer
-- [ ] Head metadata for index route
-- [ ] Verify build + preview
+- [x] Add logo asset to project
+- [x] Generate premium hero/section imagery
+- [x] Design system in src/styles.css (navy/orange, premium fonts)
+- [x] Build index page: hero, services, why-us, process, coverage, testimonials, contact, footer
+- [x] Head metadata for index route
+- [x] Verify build + preview (build OK, screenshots verified)
+
+Open (waiting on user):
+- Full phone numbers — "960, 980" from the WhatsApp note look incomplete
+- Office address to display in the Contact section
+- Real Facebook / Instagram / LinkedIn page URLs (currently generic links)
