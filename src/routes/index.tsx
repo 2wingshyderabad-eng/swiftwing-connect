@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Plane,
   Truck,
@@ -133,6 +133,7 @@ function Header() {
           <a href="#why-us" className="transition-colors hover:text-foreground">Why Us</a>
           <a href="#process" className="transition-colors hover:text-foreground">How It Works</a>
           <a href="#coverage" className="transition-colors hover:text-foreground">Coverage</a>
+          <Link to="/track" className="transition-colors hover:text-foreground">Track</Link>
           <a href="#contact" className="transition-colors hover:text-foreground">Contact</a>
         </nav>
         <div className="flex items-center gap-3">
@@ -559,6 +560,7 @@ function Footer() {
           <a href="#why-us" className="transition-colors hover:text-white">Why Us</a>
           <a href="#process" className="transition-colors hover:text-white">How It Works</a>
           <a href="#coverage" className="transition-colors hover:text-white">Coverage</a>
+          <Link to="/track" className="transition-colors hover:text-white">Track</Link>
           <a href="#contact" className="transition-colors hover:text-white">Contact</a>
         </nav>
         <p className="text-sm text-white/50">

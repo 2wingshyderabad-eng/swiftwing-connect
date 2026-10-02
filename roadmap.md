@@ -12,3 +12,6 @@ Open (waiting on user):
 - Full phone numbers — "960, 980" from the WhatsApp note look incomplete
 - Office address to display in the Contact section
 - Real Facebook / Instagram / LinkedIn page URLs (currently generic links)
+
+- [x] Shipment tracking page at /track (demo data, linked in header + footer)
+- Open: connect real shipment data (needs Lovable Cloud backend) — ask user
