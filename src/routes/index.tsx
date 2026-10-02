@@ -289,14 +289,13 @@ function WhyUs() {
           </ul>
           <div className="mt-10 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
             {[
-              [ShieldCheck, "Insured handling"],
-              [Clock, "On-time promise"],
-              [Headset, "Human support"],
-            ].map(([Icon, label]) => (
-              <div key={label as string} className="flex flex-col items-start gap-2">
-                {/* @ts-expect-error tuple icon */}
+              { icon: ShieldCheck, label: "Insured handling" },
+              { icon: Clock, label: "On-time promise" },
+              { icon: Headset, label: "Human support" },
+            ].map(({ icon: Icon, label }) => (
+              <div key={label} className="flex flex-col items-start gap-2">
                 <Icon className="size-6 text-primary" />
-                <span className="text-sm font-medium text-white/80">{label as string}</span>
+                <span className="text-sm font-medium text-white/80">{label}</span>
               </div>
             ))}
           </div>
