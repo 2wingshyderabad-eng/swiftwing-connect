@@ -21,7 +21,16 @@ import {
   CheckCircle2,
   Star,
   Quote,
+  Play,
 } from "lucide-react";
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 import logoAsset from "@/assets/xpreswings-logo.png.asset.json";
 import heroCargo from "@/assets/hero-cargo.jpg";
@@ -582,6 +591,7 @@ function Index() {
         <Process />
         <Coverage />
         <Doorstep />
+        <VideoShowcase />
         <Testimonials />
         <Contact />
       </main>
