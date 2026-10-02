@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import * as React from "react";
 import { useState } from "react";
 import {
   Package,
@@ -15,10 +16,15 @@ import {
   Phone,
 } from "lucide-react";
 
+import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
+import { FooterSkyline } from "@/components/FooterSkyline";
 import logo from "@/assets/xpreswings-logo.svg";
 import globalNetwork from "@/assets/global-network.jpg";
 
 export const Route = createFileRoute("/track")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    awb: typeof search.awb === "string" ? search.awb : "",
+  }),
   head: () => ({
     meta: [
       { title: "Track Your Shipment — XpresWings Courier" },
@@ -197,9 +203,32 @@ function makeGenericShipment(id: string): Shipment {
 const milestoneIcons = [ClipboardCheck, Package, Truck, Plane, Plane, Truck, Home];
 
 function TrackPage() {
-  const [query, setQuery] = useState("");
+  const { awb } = Route.useSearch();
+  const [query, setQuery] = useState(awb);
   const [result, setResult] = useState<Shipment | null>(null);
   const [notFound, setNotFound] = useState(false);
+
+  React.useEffect(() => {
+    if (!awb) return;
+    const id = awb.trim().toUpperCase();
+    if (!id) return;
+
+    const demo = DEMO_SHIPMENTS[id];
+    if (demo) {
+      setResult(demo);
+      setNotFound(false);
+      return;
+    }
+
+    if (/^XW\d{6,}[A-Z]{0,2}$/.test(id)) {
+      setResult(makeGenericShipment(id));
+      setNotFound(false);
+      return;
+    }
+
+    setResult(null);
+    setNotFound(true);
+  }, [awb]);
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
@@ -488,6 +517,7 @@ function TrackPage() {
         </section>
       </main>
 
+      <FooterSkyline />
       <footer className="on-dark bg-surface-darker py-10 text-white">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 sm:px-6 lg:flex-row lg:justify-between">
           <div className="rounded-xl bg-white px-4 py-2.5">
@@ -496,6 +526,9 @@ function TrackPage() {
           <p className="text-sm text-white/50">
             © {new Date().getFullYear()} XpresWings International Courier Services
           </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-8 sm:px-6">
+          <AnimatedDeliveryRoute />
         </div>
       </footer>
     </div>

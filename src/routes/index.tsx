@@ -7,15 +7,8 @@ import {
   Package,
   Briefcase,
   Phone,
-  Mail,
-  MapPin,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Youtube,
   ShieldCheck,
   Clock,
-  Globe2,
   Headset,
   ArrowRight,
   CheckCircle2,
@@ -32,11 +25,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
+import { FooterSkyline } from "@/components/FooterSkyline";
+import { HeroSection } from "@/components/HeroSection";
+import { HyperlocalDeliveryFeature } from "@/components/HyperlocalDeliveryFeature";
+import { LogisticsMetricsGrid } from "@/components/LogisticsMetricsGrid";
+import { SellerCoverageBanner } from "@/components/SellerCoverageBanner";
+import { cn } from "@/lib/utils";
 import logo from "@/assets/xpreswings-logo.svg";
 import heroCargo from "@/assets/hero-cargo.jpg";
 import servicePacking from "@/assets/service-packing.jpg";
 import serviceDoorstep from "@/assets/service-doorstep.jpg";
-import globalNetwork from "@/assets/global-network.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,8 +61,6 @@ export const Route = createFileRoute("/")({
 
 const PHONE_PRIMARY = "88864 44940";
 const PHONE_TEL = "+918886444940";
-const EMAIL = "info@xpreswings.com";
-const YOUTUBE = "https://www.youtube.com/@Charan_XPRESWINGS";
 
 const services = [
   {
@@ -146,52 +143,82 @@ const testimonials = [
   },
 ];
 
-function Header() {
+function Header({ overlay = false }: { overlay?: boolean }) {
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md">
+    <header
+      className={cn(
+        "z-50 border-b backdrop-blur-md",
+        overlay
+          ? "site-header--overlay absolute inset-x-0 top-0"
+          : "sticky top-0 border-border bg-background/90",
+      )}
+    >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex items-center">
-          <img
-            src={logo}
-            alt="XpresWings home"
-            width={1495}
-            height={263}
-            className="h-6 w-auto sm:h-8 lg:h-9"
-          />
+          <span className={cn("rounded-xl px-3 py-2", overlay && "bg-white")}>
+            <img
+              src={logo}
+              alt="XpresWings home"
+              width={1495}
+              height={263}
+              className="h-6 w-auto sm:h-8 lg:h-9"
+            />
+          </span>
         </a>
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-8 text-sm font-medium text-muted-foreground lg:flex"
+          className="hidden items-center gap-8 text-sm font-medium lg:flex"
         >
-          <a href="#services" className="transition-colors hover:text-foreground">
+          <a
+            href="#services"
+            className={cn(
+              "site-header__nav-link transition-colors hover:text-foreground",
+              !overlay && "text-muted-foreground",
+            )}
+          >
             Services
           </a>
-          <a href="#why-us" className="transition-colors hover:text-foreground">
+          <a
+            href="#why-us"
+            className={cn(
+              "site-header__nav-link transition-colors hover:text-foreground",
+              !overlay && "text-muted-foreground",
+            )}
+          >
             Why Us
           </a>
-          <a href="#process" className="transition-colors hover:text-foreground">
+          <a
+            href="#process"
+            className={cn(
+              "site-header__nav-link transition-colors hover:text-foreground",
+              !overlay && "text-muted-foreground",
+            )}
+          >
             How It Works
           </a>
-          <a href="#coverage" className="transition-colors hover:text-foreground">
-            Coverage
-          </a>
-          <Link to="/track" className="transition-colors hover:text-foreground">
+          <Link
+            to="/track"
+            className={cn(
+              "site-header__nav-link transition-colors hover:text-foreground",
+              !overlay && "text-muted-foreground",
+            )}
+          >
             Track
           </Link>
-          <a href="#contact" className="transition-colors hover:text-foreground">
-            Contact
-          </a>
         </nav>
         <div className="flex items-center gap-3">
           <a
             href={`tel:${PHONE_TEL}`}
-            className="hidden items-center gap-2 text-sm font-semibold text-foreground sm:flex"
+            className={cn(
+              "site-header__phone hidden items-center gap-2 text-sm font-semibold sm:flex",
+              overlay ? "text-white" : "text-foreground",
+            )}
           >
             <Phone className="size-4 text-primary" />
             {PHONE_PRIMARY}
           </a>
           <a
-            href="#contact"
+            href={`tel:${PHONE_TEL}`}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
           >
             Get a Quote
@@ -203,72 +230,9 @@ function Header() {
   );
 }
 
-function Hero() {
-  return (
-    <section id="top" className="on-dark relative overflow-hidden">
-      <img
-        src={heroCargo}
-        alt="Cargo aircraft over a container port at dusk"
-        className="absolute inset-0 h-full w-full object-cover"
-        width={1920}
-        height={1024}
-      />
-      <div className="hero-overlay absolute inset-0" />
-      <div className="relative mx-auto max-w-7xl px-4 py-28 sm:px-6 sm:py-36 lg:py-44">
-        <div className="max-w-2xl">
-          <span className="section-label">
-            <Globe2 className="size-4" />
-            International & Domestic Courier
-          </span>
-          <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-            Your parcel.
-            <br />
-            <span className="text-primary">Our wings.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
-            Reliable door-to-door courier services to destinations across the world — with safe
-            handling, secure packing, and timely processing you can count on.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-xl shadow-primary/30 transition-transform hover:scale-[1.03]"
-            >
-              Ship with XpresWings
-              <ArrowRight className="size-5" />
-            </a>
-            <a
-              href={`tel:${PHONE_TEL}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
-            >
-              <Phone className="size-5" />
-              Call {PHONE_PRIMARY}
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="relative border-t border-white/10 bg-surface-darker/80 backdrop-blur-sm">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-4 sm:px-6">
-          {[
-            ["220+", "Countries served"],
-            ["50K+", "Parcels delivered"],
-            ["98%", "On-time delivery"],
-            ["24/7", "Customer support"],
-          ].map(([stat, label]) => (
-            <div key={label}>
-              <div className="font-display text-3xl font-bold text-primary sm:text-4xl">{stat}</div>
-              <div className="mt-1 text-sm text-white/70">{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Services() {
   return (
-    <section id="services" className="py-24 sm:py-32">
+    <section id="services" className="scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-2xl">
           <span className="section-label">Our Services</span>
@@ -373,53 +337,6 @@ function Process() {
             </li>
           ))}
         </ol>
-      </div>
-    </section>
-  );
-}
-
-function Coverage() {
-  return (
-    <section id="coverage" className="on-dark relative overflow-hidden py-24 sm:py-32">
-      <img
-        src={globalNetwork}
-        alt="Global delivery network map"
-        loading="lazy"
-        width={1920}
-        height={1024}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-surface-darker/70" />
-      <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6">
-        <span className="section-label justify-center">Global Coverage</span>
-        <h2 className="mx-auto mt-4 max-w-3xl text-balance text-3xl font-bold text-white sm:text-5xl">
-          One network. 220+ destinations worldwide.
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-white/75">
-          USA, UK, Canada, Australia, UAE, Singapore, Europe and beyond — plus every corner of
-          India.
-        </p>
-        <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-3">
-          {[
-            "USA",
-            "UK",
-            "Canada",
-            "Australia",
-            "UAE",
-            "Singapore",
-            "Germany",
-            "France",
-            "New Zealand",
-            "Malaysia",
-          ].map((c) => (
-            <span
-              key={c}
-              className="rounded-full border border-white/25 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-sm"
-            >
-              {c}
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -544,7 +461,7 @@ function VideoShowcase() {
 
 function Testimonials() {
   return (
-    <section className="bg-secondary py-24 sm:py-32">
+    <section id="testimonials" className="bg-secondary py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-label justify-center">Testimonials</span>
@@ -577,117 +494,6 @@ function Testimonials() {
   );
 }
 
-function Contact() {
-  return (
-    <section id="contact" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="on-dark overflow-hidden rounded-3xl bg-surface-dark">
-          <div className="grid lg:grid-cols-2">
-            <div className="p-10 text-white sm:p-14">
-              <span className="section-label">Get In Touch</span>
-              <h2 className="mt-4 text-balance text-3xl font-bold sm:text-5xl">
-                Ready to ship? Talk to us today.
-              </h2>
-              <p className="mt-5 text-lg text-white/70">
-                Call, email, or message us for rates, pickup scheduling, and any shipping question.
-              </p>
-              <div className="mt-10 space-y-6">
-                <a href={`tel:${PHONE_TEL}`} className="flex items-center gap-4 group">
-                  <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <Phone className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-white/60">Phone</span>
-                    <span className="block text-lg font-semibold transition-colors group-hover:text-primary">
-                      {PHONE_PRIMARY}
-                    </span>
-                  </span>
-                </a>
-                <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 group">
-                  <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <Mail className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-white/60">Email</span>
-                    <span className="block text-lg font-semibold transition-colors group-hover:text-primary">
-                      {EMAIL}
-                    </span>
-                  </span>
-                </a>
-                <div className="flex items-center gap-4">
-                  <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <MapPin className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-white/60">Address</span>
-                    <span className="block text-lg font-semibold">India — serving worldwide</span>
-                  </span>
-                </div>
-              </div>
-              <div className="mt-10 flex gap-3">
-                {[
-                  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com" },
-                  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com" },
-                  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com" },
-                  { icon: Youtube, label: "YouTube", href: YOUTUBE },
-                ].map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${s.label} (opens in a new tab)`}
-                    className="flex size-11 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <s.icon className="size-5" />
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div className="relative min-h-80 bg-surface-darker p-10 sm:p-14">
-              <div className="absolute inset-0 opacity-40">
-                <img
-                  src={globalNetwork}
-                  alt=""
-                  loading="lazy"
-                  width={1920}
-                  height={1024}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="relative flex h-full flex-col justify-center">
-                <div className="rounded-2xl border border-white/15 bg-surface-darker/80 p-8 backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold text-white">Business hours</h3>
-                  <dl className="mt-5 space-y-3 text-white/80">
-                    <div className="flex justify-between gap-6">
-                      <dt>Monday – Saturday</dt>
-                      <dd className="font-semibold text-white">9:00 AM – 8:00 PM</dd>
-                    </div>
-                    <div className="flex justify-between gap-6">
-                      <dt>Sunday</dt>
-                      <dd className="font-semibold text-white">On call</dd>
-                    </div>
-                  </dl>
-                  <a
-                    href={YOUTUBE}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-                  >
-                    <Youtube className="size-5" />
-                    Watch us on YouTube — @Charan_XPRESWINGS
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Footer() {
   return (
     <footer className="on-dark bg-surface-darker py-12 text-white">
@@ -708,19 +514,16 @@ function Footer() {
           <a href="#process" className="transition-colors hover:text-white">
             How It Works
           </a>
-          <a href="#coverage" className="transition-colors hover:text-white">
-            Coverage
-          </a>
           <Link to="/track" className="transition-colors hover:text-white">
             Track
           </Link>
-          <a href="#contact" className="transition-colors hover:text-white">
-            Contact
-          </a>
         </nav>
         <p className="text-sm text-white/50">
           © {new Date().getFullYear()} XpresWings International Courier Services
         </p>
+      </div>
+      <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-4 pt-8 sm:px-6">
+        <AnimatedDeliveryRoute />
       </div>
     </footer>
   );
@@ -732,18 +535,22 @@ function Index() {
       <a href="#main" className="skip-link">
         Skip to main content
       </a>
-      <Header />
+      <div className="relative">
+        <Header overlay />
+        <HeroSection />
+      </div>
       <main id="main">
-        <Hero />
+        <LogisticsMetricsGrid />
         <Services />
         <WhyUs />
         <Process />
-        <Coverage />
         <Doorstep />
+        <HyperlocalDeliveryFeature />
         <VideoShowcase />
         <Testimonials />
-        <Contact />
+        <SellerCoverageBanner />
       </main>
+      <FooterSkyline />
       <Footer />
     </div>
   );
