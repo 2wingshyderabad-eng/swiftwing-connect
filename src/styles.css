@@ -165,13 +165,24 @@
     border-color: var(--color-border);
   }
 
+  html {
+    overflow-x: clip;
+  }
+
   body {
+    overflow-x: clip;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: var(--xw-font-size-base);
     font-weight: var(--xw-font-weight-base);
     line-height: var(--xw-line-height-base);
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
   h1,
@@ -549,6 +560,46 @@
     }
   }
 
+  @media (max-width: 639px) {
+    .hero-xb__shell {
+      padding-top: 5.5rem;
+      padding-bottom: 2rem;
+    }
+
+    .hero-xb__content {
+      max-width: none;
+      min-width: 0;
+    }
+
+    .hero-xb__title {
+      font-size: clamp(1.65rem, 7.8vw, 2.15rem);
+      line-height: 1.12;
+    }
+
+    .hero-xb__description {
+      font-size: 0.95rem;
+    }
+
+    .hero-xb__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-xb__cta {
+      width: 100%;
+    }
+
+    .hero-xb__visual {
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+
+    .hero-xb__footer {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-xb__slide-image {
       transition-duration: 0.01ms;
@@ -582,6 +633,67 @@
 
   .site-header--overlay .site-header__phone {
     color: #ffffff;
+  }
+
+  .site-header__menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+    border-radius: var(--xw-radius-md);
+    background: color-mix(in oklab, var(--background) 88%, transparent);
+    color: var(--foreground);
+    cursor: pointer;
+    transition:
+      background-color var(--xw-motion-duration-fast) var(--xw-motion-easing-standard),
+      border-color var(--xw-motion-duration-fast) var(--xw-motion-easing-standard);
+  }
+
+  .site-header__menu-btn--overlay {
+    border-color: color-mix(in oklab, #ffffff 22%, transparent);
+    background: color-mix(in oklab, #ffffff 10%, transparent);
+    color: #ffffff;
+  }
+
+  .site-header__mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.5rem 1rem 1rem;
+    border-top: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+    background: color-mix(in oklab, var(--background) 96%, transparent);
+  }
+
+  .site-header__mobile--overlay {
+    border-top-color: color-mix(in oklab, #ffffff 12%, transparent);
+    background: color-mix(in oklab, var(--surface-darker) 92%, transparent);
+  }
+
+  .site-header__mobile-link {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--xw-radius-md);
+    color: var(--foreground);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color var(--xw-motion-duration-fast) var(--xw-motion-easing-standard);
+  }
+
+  .site-header__mobile-link:hover {
+    background: color-mix(in oklab, var(--foreground) 6%, transparent);
+  }
+
+  .site-header__mobile--overlay .site-header__mobile-link {
+    color: #ffffff;
+  }
+
+  .site-header__mobile--overlay .site-header__mobile-link:hover {
+    background: color-mix(in oklab, #ffffff 10%, transparent);
   }
 }
 
@@ -739,6 +851,43 @@
   .seller-brands-fade-right {
     inset-inline-end: 0;
     background: linear-gradient(270deg, #ffffff 0%, transparent 100%);
+  }
+
+  @media (max-width: 639px) {
+    .seller-banner-page {
+      padding-top: 2rem;
+    }
+
+    .seller-banner-card {
+      gap: 1.25rem;
+      padding: 1.5rem;
+      border-radius: 1.25rem;
+    }
+
+    .seller-banner-title {
+      font-size: clamp(1.5rem, 7vw, 1.9rem);
+    }
+
+    .seller-banner-description {
+      font-size: 0.95rem;
+    }
+
+    .seller-banner-button {
+      width: 100%;
+      margin-top: 1.25rem;
+    }
+
+    .seller-map {
+      max-width: 100%;
+    }
+
+    .seller-brands {
+      padding: 1.5rem 0 2.5rem;
+    }
+
+    .seller-brands-track img {
+      height: 2rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1038,11 +1187,25 @@
     }
   }
 
-  @media (max-width: 620px) {
+  @media (max-width: 767px) {
     .metrics-shell {
       padding: 2rem 1rem 0;
     }
 
+    .metrics-heading-wrap {
+      margin-bottom: 1.75rem;
+    }
+
+    .metrics-heading {
+      gap: 0.5rem 0.75rem;
+    }
+
+    .metrics-logo {
+      height: 1.75rem;
+    }
+  }
+
+  @media (max-width: 620px) {
     .metrics-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.75rem;
@@ -1051,6 +1214,15 @@
     .metric-card {
       min-height: 10.25rem;
       padding: 1.25rem 0.625rem;
+    }
+
+    .metric-value {
+      font-size: 1.2rem;
+    }
+
+    .metric-label {
+      max-width: none;
+      font-size: 0.75rem;
     }
   }
 
@@ -1065,8 +1237,8 @@
 @layer components {
   .whatsapp-fab {
     position: fixed;
-    right: clamp(1rem, 3vw, 1.5rem);
-    bottom: clamp(1rem, 3vw, 1.5rem);
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
     z-index: 60;
     display: inline-flex;
     align-items: center;
