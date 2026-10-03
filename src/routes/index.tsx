@@ -14,16 +14,7 @@ import {
   CheckCircle2,
   Star,
   Quote,
-  Play,
 } from "lucide-react";
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
 import { FooterSkyline } from "@/components/FooterSkyline";
@@ -33,7 +24,6 @@ import { LogisticsMetricsGrid } from "@/components/LogisticsMetricsGrid";
 import { SellerCoverageBanner } from "@/components/SellerCoverageBanner";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/xpreswings-logo.svg";
-import heroCargo from "@/assets/hero-cargo.jpg";
 import servicePacking from "@/assets/service-packing.jpg";
 import serviceDoorstep from "@/assets/service-doorstep.jpg";
 
@@ -376,89 +366,6 @@ function Doorstep() {
   );
 }
 
-const showcaseSlides = [
-  {
-    title: "Doorstep Delivery",
-    caption: "Our uniformed courier hands over your parcel — safe, sealed, and on time.",
-    image: serviceDoorstep,
-    video: null as string | null,
-  },
-  {
-    title: "Professional Packing",
-    caption: "Every shipment is wrapped, cushioned, and sealed by trained packing staff.",
-    image: servicePacking,
-    video: null as string | null,
-  },
-  {
-    title: "Global Air & Sea Cargo",
-    caption: "From India to 220+ destinations by air and sea, tracked end to end.",
-    image: heroCargo,
-    video: null as string | null,
-  },
-];
-
-function VideoShowcase() {
-  return (
-    <section
-      id="videos"
-      className="on-dark relative overflow-hidden bg-surface-dark py-24 text-white sm:py-32"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="section-label justify-center">Watch Us In Action</span>
-          <h2 className="mt-4 text-balance text-3xl font-bold sm:text-5xl">
-            See how XpresWings moves your world
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-white/70">
-            From doorstep pickup to professional packing and global cargo — a look at how we handle
-            every shipment.
-          </p>
-        </div>
-        <Carousel opts={{ align: "start", loop: true }} className="mx-auto mt-14 max-w-5xl">
-          <CarouselContent>
-            {showcaseSlides.map((slide) => (
-              <CarouselItem key={slide.title}>
-                <figure className="relative overflow-hidden rounded-3xl shadow-2xl">
-                  {slide.video ? (
-                    <video
-                      src={slide.video}
-                      poster={slide.image}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="aspect-video w-full object-cover"
-                    />
-                  ) : (
-                    <>
-                      <img
-                        src={slide.image}
-                        alt={slide.title}
-                        loading="lazy"
-                        className="aspect-video w-full animate-[kenburns_14s_ease-in-out_infinite_alternate] object-cover"
-                      />
-                      <span className="absolute inset-0 grid place-items-center">
-                        <span className="grid size-16 place-items-center rounded-full bg-primary/90 text-primary-foreground shadow-xl shadow-primary/40">
-                          <Play className="size-7 fill-current" />
-                        </span>
-                      </span>
-                    </>
-                  )}
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-surface-dark/90 to-transparent p-6 pt-16">
-                    <p className="text-lg font-bold">{slide.title}</p>
-                    <p className="mt-1 text-sm text-white/75">{slide.caption}</p>
-                  </figcaption>
-                </figure>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="-left-4 border-white/20 bg-white/10 text-white hover:bg-white/20 sm:-left-12" />
-          <CarouselNext className="-right-4 border-white/20 bg-white/10 text-white hover:bg-white/20 sm:-right-12" />
-        </Carousel>
-      </div>
-    </section>
-  );
-}
-
 function Testimonials() {
   return (
     <section id="testimonials" className="bg-secondary py-24 sm:py-32">
@@ -541,14 +448,13 @@ function Index() {
       </div>
       <main id="main">
         <LogisticsMetricsGrid />
+        <SellerCoverageBanner />
         <Services />
         <WhyUs />
         <Process />
         <Doorstep />
         <HyperlocalDeliveryFeature />
-        <VideoShowcase />
         <Testimonials />
-        <SellerCoverageBanner />
       </main>
       <FooterSkyline />
       <Footer />
