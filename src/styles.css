@@ -1331,115 +1331,625 @@
   }
 }
 
-/* Image carousel gallery (src/components/ImageCarouselGallery.tsx). */
+/* Golden Vision partner spotlight (src/components/ImageCarouselGallery.tsx). */
 @layer components {
-  .image-carousel {
-    width: 100%;
-    overflow: hidden;
-    padding: 0 0 3.375rem;
+  .golden-vision {
+    padding: 4.5rem 1rem 5rem;
     color: var(--foreground);
     background: var(--background);
   }
 
-  .image-carousel__viewport {
-    width: 100%;
-    overflow: hidden;
+  .golden-vision__container {
+    max-width: 72rem;
+    margin: 0 auto;
   }
 
-  .image-carousel__track {
-    display: flex;
+  .golden-vision__intro {
+    display: grid;
     align-items: center;
-    gap: 0.625rem;
-    width: max-content;
-    transform: translateX(var(--carousel-offset, 0px));
-    transition: transform 600ms var(--xw-motion-easing-standard);
+    gap: 2.5rem;
+    padding: 2rem;
+    border: 1px solid color-mix(in oklab, #c9a227 28%, var(--border));
+    border-radius: 1.75rem;
+    background:
+      radial-gradient(
+        circle at top right,
+        color-mix(in oklab, #d4af37 12%, transparent),
+        transparent 55%
+      ),
+      var(--card);
+    box-shadow: 0 24px 60px color-mix(in oklab, #000000 8%, transparent);
   }
 
-  .image-carousel__slide {
-    flex: 0 0 calc((100vw - 40px) / 3);
-    max-width: 26.5625rem;
+  .golden-vision__logo-wrap {
+    margin: 0;
     overflow: hidden;
-    border-radius: 1.25rem;
+    border-radius: 1.5rem;
+    background: #000000;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, #d4af37 18%, transparent);
   }
 
-  .image-carousel__image {
+  .golden-vision__logo {
     display: block;
     width: 100%;
-    aspect-ratio: 1020 / 736;
-    object-fit: cover;
-    border-radius: 1.25rem;
-    transition: transform 300ms var(--xw-motion-easing-standard);
+    max-width: 22rem;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 1.75rem;
   }
 
-  .image-carousel__slide:hover .image-carousel__image {
-    transform: scale(1.018);
+  .golden-vision__copy {
+    text-align: center;
   }
 
-  .image-carousel__controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.875rem;
+  .golden-vision__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.875rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8a6b12;
+    background: color-mix(in oklab, #d4af37 16%, #ffffff);
+    border-radius: var(--xw-radius-pill);
   }
 
-  .image-carousel__button {
+  .golden-vision__name {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.35rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    text-wrap: balance;
+    color: color-mix(in oklab, #8a6b12 72%, var(--foreground));
+  }
+
+  .golden-vision__tagline {
+    max-width: 34rem;
+    margin: 1rem auto 0;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--muted-foreground);
+  }
+
+  .golden-vision__summary {
+    max-width: 38rem;
+    margin: 1rem auto 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .golden-vision__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    padding: 0;
-    color: var(--foreground);
-    background: transparent;
-    border: 1px solid var(--foreground);
-    border-radius: 30%;
-    cursor: pointer;
+    margin-top: 1.35rem;
+    padding: 0.85rem 1.35rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #b8860b 0%, #d4af37 100%);
+    border-radius: var(--xw-radius-pill);
+    box-shadow: 0 12px 28px color-mix(in oklab, #b8860b 24%, transparent);
     transition:
-      background-color 180ms var(--xw-motion-easing-standard),
-      color 180ms var(--xw-motion-easing-standard),
-      transform 180ms var(--xw-motion-easing-standard);
+      transform 180ms var(--xw-motion-easing-standard),
+      box-shadow 180ms var(--xw-motion-easing-standard);
   }
 
-  .image-carousel__button:hover,
-  .image-carousel__button:focus-visible {
-    color: var(--background);
-    background: var(--foreground);
+  .golden-vision__cta:hover,
+  .golden-vision__cta:focus-visible {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 34px color-mix(in oklab, #b8860b 32%, transparent);
+  }
+
+  .golden-vision__feature-block,
+  .golden-vision__process,
+  .golden-vision__services {
+    margin-top: 3rem;
+  }
+
+  .golden-vision__services-head {
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+
+  .golden-vision__services-title {
+    margin: 0.75rem 0 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .golden-vision__services-lead,
+  .golden-vision__contact-lead {
+    max-width: 42rem;
+    margin: 0.85rem auto 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  .golden-vision__feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.125rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__feature-card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid color-mix(in oklab, #c9a227 22%, var(--border));
+    border-radius: 1.35rem;
+    background: var(--card);
+    box-shadow: 0 16px 40px color-mix(in oklab, #000000 6%, transparent);
+  }
+
+  .golden-vision__feature-media {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .golden-vision__feature-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 320ms var(--xw-motion-easing-standard);
+  }
+
+  .golden-vision__feature-card:hover .golden-vision__feature-media img {
+    transform: scale(1.03);
+  }
+
+  .golden-vision__feature-body {
+    padding: 1.35rem 1.35rem 1.5rem;
+  }
+
+  .golden-vision__feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-bottom: 0.85rem;
+    color: #8a6b12;
+    background: color-mix(in oklab, #d4af37 14%, #ffffff);
+    border-radius: 0.85rem;
+  }
+
+  .golden-vision__feature-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: color-mix(in oklab, #8a6b12 72%, var(--foreground));
+  }
+
+  .golden-vision__feature-copy {
+    margin: 0.65rem 0 0;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  .golden-vision__feature-list {
+    display: grid;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__feature-list li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--foreground);
+  }
+
+  .golden-vision__feature-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: #d4af37;
+  }
+
+  .golden-vision__tekla {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding: 1.75rem;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at top left, color-mix(in oklab, #d4af37 18%, transparent), transparent 42%),
+      linear-gradient(145deg, #111111 0%, #1d1a14 100%);
+    border: 1px solid color-mix(in oklab, #d4af37 28%, #333333);
+    border-radius: 1.75rem;
+  }
+
+  .golden-vision__eyebrow--light {
+    color: #f5e6a8;
+    background: color-mix(in oklab, #ffffff 10%, transparent);
+  }
+
+  .golden-vision__tekla-title {
+    margin: 0.75rem 0 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .golden-vision__tekla-lead {
+    margin: 0.85rem 0 0;
+    max-width: 36rem;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: color-mix(in oklab, #ffffff 72%, transparent);
+  }
+
+  .golden-vision__tekla-list {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__tekla-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #ffffff;
+  }
+
+  .golden-vision__tekla-list svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: #d4af37;
+  }
+
+  .golden-vision__tekla-visual {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    aspect-ratio: 16 / 10;
+  }
+
+  .golden-vision__tekla-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .golden-vision__tekla-badge {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #111111;
+    background: #d4af37;
+    border-radius: var(--xw-radius-pill);
+  }
+
+  .golden-vision__process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__process-step {
+    padding: 1.35rem;
+    border: 1px solid color-mix(in oklab, #c9a227 18%, var(--border));
+    border-radius: 1.15rem;
+    background: var(--card);
+  }
+
+  .golden-vision__process-number {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: color-mix(in oklab, #d4af37 70%, var(--foreground));
+  }
+
+  .golden-vision__process-title {
+    margin: 0.75rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .golden-vision__process-copy {
+    margin: 0.55rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+
+  .golden-vision__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__card {
+    min-width: 0;
+  }
+
+  .golden-vision__card-media {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    border: 1px solid color-mix(in oklab, #c9a227 22%, var(--border));
+    background: #000000;
+    aspect-ratio: 16 / 10;
+  }
+
+  .golden-vision__card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 320ms var(--xw-motion-easing-standard);
+  }
+
+  .golden-vision__card-caption {
+    position: absolute;
+    inset: auto 0 0;
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.1rem 1.25rem;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.35;
+    color: #ffffff;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklab, #000000 18%, transparent) 18%,
+      color-mix(in oklab, #000000 78%, transparent) 100%
+    );
+  }
+
+  .golden-vision__card-caption strong {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .golden-vision__card-caption span {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: color-mix(in oklab, #ffffff 82%, transparent);
+  }
+
+  .golden-vision__card:hover .golden-vision__card-media img,
+  .golden-vision__card:focus-within .golden-vision__card-media img {
+    transform: scale(1.04);
+  }
+
+  .golden-vision__contact {
+    margin-top: 3rem;
+    padding: 2rem;
+    border: 1px solid color-mix(in oklab, #c9a227 22%, var(--border));
+    border-radius: 1.5rem;
+    background: color-mix(in oklab, #d4af37 6%, var(--card));
+  }
+
+  .golden-vision__contact-head {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .golden-vision__contact-title {
+    margin: 0.75rem 0 0;
+    font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .golden-vision__contact-list {
+    display: grid;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__contact-link {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.95rem 1.1rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--foreground);
+    text-decoration: none;
+    background: var(--background);
+    border: 1px solid color-mix(in oklab, #c9a227 18%, var(--border));
+    border-radius: 1rem;
+    transition:
+      border-color 180ms var(--xw-motion-easing-standard),
+      transform 180ms var(--xw-motion-easing-standard),
+      box-shadow 180ms var(--xw-motion-easing-standard);
+  }
+
+  .golden-vision__contact-link svg {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: #8a6b12;
+  }
+
+  .golden-vision__contact-link:hover,
+  .golden-vision__contact-link:focus-visible {
+    border-color: color-mix(in oklab, #c9a227 45%, var(--border));
+    box-shadow: 0 10px 24px color-mix(in oklab, #000000 8%, transparent);
     outline: none;
     transform: translateY(-1px);
   }
 
-  .image-carousel__button:focus-visible {
-    box-shadow: 0 0 0 3px color-mix(in oklab, var(--foreground) 18%, transparent);
+  .golden-vision__social {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in oklab, #c9a227 18%, var(--border));
+    text-align: center;
   }
 
-  .image-carousel__status {
-    width: 0.25rem;
-    height: 0.25rem;
-    border-radius: var(--xw-radius-pill);
-    background: color-mix(in oklab, var(--foreground) 28%, #ffffff);
+  .golden-vision__social-label {
+    margin: 0 0 1rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
   }
 
-  @media (max-width: 980px) {
-    .image-carousel__slide {
-      flex-basis: calc((100vw - 30px) / 2);
+  .golden-vision__social-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .golden-vision__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #8a6b12;
+    background: var(--background);
+    border: 1px solid color-mix(in oklab, #c9a227 24%, var(--border));
+    border-radius: 999px;
+    transition:
+      color 180ms var(--xw-motion-easing-standard),
+      background-color 180ms var(--xw-motion-easing-standard),
+      border-color 180ms var(--xw-motion-easing-standard),
+      transform 180ms var(--xw-motion-easing-standard);
+  }
+
+  .golden-vision__social-link:hover,
+  .golden-vision__social-link:focus-visible {
+    color: #ffffff;
+    background: #8a6b12;
+    border-color: #8a6b12;
+    outline: none;
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 640px) {
+    .golden-vision__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.125rem;
+    }
+
+    .golden-vision__process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 600px) {
-    .image-carousel {
-      padding-bottom: 3rem;
+  @media (min-width: 768px) {
+    .golden-vision {
+      padding: 5.5rem 1.5rem 6rem;
     }
 
-    .image-carousel__slide {
-      flex-basis: calc(100vw - 32px);
+    .golden-vision__intro {
+      grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+      gap: 3rem;
+      padding: 2.5rem 3rem;
+    }
+
+    .golden-vision__copy {
+      text-align: left;
+    }
+
+    .golden-vision__tagline,
+    .golden-vision__summary {
+      margin-left: 0;
+    }
+
+    .golden-vision__services-head,
+    .golden-vision__contact-head,
+    .golden-vision__social {
+      text-align: left;
+    }
+
+    .golden-vision__services-lead,
+    .golden-vision__contact-lead {
+      margin-left: 0;
+    }
+
+    .golden-vision__social-list {
+      justify-content: flex-start;
+    }
+
+    .golden-vision__contact-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .golden-vision__feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .golden-vision__feature-card {
+      grid-template-rows: auto 1fr;
+    }
+
+    .golden-vision__tekla {
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+      align-items: center;
+      padding: 2.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .golden-vision__process-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .image-carousel__track,
-    .image-carousel__image,
-    .image-carousel__button {
+    .golden-vision__card-media img,
+    .golden-vision__feature-media img,
+    .golden-vision__cta,
+    .golden-vision__contact-link,
+    .golden-vision__social-link {
       transition: none;
     }
   }
