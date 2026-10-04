@@ -23,6 +23,7 @@ import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
 import { FooterSkyline } from "@/components/FooterSkyline";
 import { HeroSection } from "@/components/HeroSection";
 import { HyperlocalDeliveryFeature } from "@/components/HyperlocalDeliveryFeature";
+import { ImageCarouselGallery } from "@/components/ImageCarouselGallery";
 import { LogisticsMetricsGrid } from "@/components/LogisticsMetricsGrid";
 import { SellerCoverageBanner } from "@/components/SellerCoverageBanner";
 import { cn } from "@/lib/utils";
@@ -470,6 +471,7 @@ function Index() {
         <LogisticsMetricsGrid />
         <SellerCoverageBanner />
         <Services />
+        <ImageCarouselGallery />
         <WhyUs />
         <Process />
         <Doorstep />
