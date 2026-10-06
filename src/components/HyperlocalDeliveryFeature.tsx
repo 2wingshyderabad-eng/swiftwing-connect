@@ -1,4 +1,4 @@
-import serviceDoorstep from "@/assets/service-doorstep.jpg";
+import expressDelivery from "@/assets/express-delivery.jpg";
 
 export interface HyperlocalDeliveryFeatureProps {
   eyebrow?: string;
@@ -17,8 +17,8 @@ export function HyperlocalDeliveryFeature({
     "When time matters, XpresWings gets it there fast. Express same-day and next-day delivery across major Indian cities — with doorstep pickup, live tracking, and the same secure handling you trust for every international and domestic shipment.",
   actionLabel = "Book a Home Pickup",
   actionHref = "tel:+918886444940",
-  imageSrc = serviceDoorstep,
-  imageAlt = "XpresWings courier delivering a parcel at a doorstep",
+  imageSrc = expressDelivery,
+  imageAlt = "Express delivery van with packages ready for same-day dispatch",
 }: HyperlocalDeliveryFeatureProps) {
   return (
     <section className="hyperlocal-feature" aria-labelledby="hyperlocal-feature-title">
