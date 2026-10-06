@@ -1,5 +1,4 @@
-const deliveryImage =
-  "https://cdn.sanity.io/images/rsv7ni0r/production/865473291078b1e1e1168240a864828c641e2584-2979x1680.png?w=1600&q=100";
+import serviceDoorstep from "@/assets/service-doorstep.jpg";
 
 export interface HyperlocalDeliveryFeatureProps {
   eyebrow?: string;
@@ -8,16 +7,18 @@ export interface HyperlocalDeliveryFeatureProps {
   actionLabel?: string;
   actionHref?: string;
   imageSrc?: string;
+  imageAlt?: string;
 }
 
 export function HyperlocalDeliveryFeature({
-  eyebrow = "Quick Delivery (Hyperlocal)",
-  title = "Same-Day and Hyperlocal Delivery for Your Fastest-Moving Orders",
+  eyebrow = "Express Delivery",
+  title = "Same-Day Courier for Your Urgent Shipments",
   description =
-    "Fulfil same-day and quick-commerce demand with hyperlocal delivery partners built for metro and Tier-1 speed. Eligible orders route automatically to 2-hour and same-day delivery options, while tracking, NDR, and COD handling stay consistent with every other shipment on XpresWings.",
-  actionLabel = "Explore Shipping Software",
+    "When time matters, XpresWings gets it there fast. Express same-day and next-day delivery across major Indian cities — with doorstep pickup, live tracking, and the same secure handling you trust for every international and domestic shipment.",
+  actionLabel = "Book a Home Pickup",
   actionHref = "tel:+918886444940",
-  imageSrc = deliveryImage,
+  imageSrc = serviceDoorstep,
+  imageAlt = "XpresWings courier delivering a parcel at a doorstep",
 }: HyperlocalDeliveryFeatureProps) {
   return (
     <section className="hyperlocal-feature" aria-labelledby="hyperlocal-feature-title">
@@ -38,13 +39,15 @@ export function HyperlocalDeliveryFeature({
             </a>
           </div>
         </div>
-        <div className="hyperlocal-feature__visual" aria-hidden="true">
+        <div className="hyperlocal-feature__visual">
           <img
             className="hyperlocal-feature__image"
             src={imageSrc}
-            alt=""
+            alt={imageAlt}
             loading="lazy"
             decoding="async"
+            width={1024}
+            height={768}
           />
         </div>
       </div>

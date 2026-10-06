@@ -1011,8 +1011,9 @@
     max-width: 42rem;
     height: auto;
     max-height: 24rem;
-    object-fit: contain;
-    filter: drop-shadow(0 22px 30px color-mix(in oklab, var(--surface-dark) 8%, transparent));
+    border-radius: var(--xw-radius-xl, 1.5rem);
+    object-fit: cover;
+    box-shadow: 0 22px 30px color-mix(in oklab, var(--surface-dark) 12%, transparent);
   }
 
   @media (max-width: 767px) {
