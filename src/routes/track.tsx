@@ -15,7 +15,6 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  MapPin,
 } from "lucide-react";
 
 import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
