@@ -9,6 +9,7 @@ import {
   Briefcase,
   Phone,
   Mail,
+  MapPin,
   ShieldCheck,
   Clock,
   Headset,
@@ -26,7 +27,14 @@ import { HeroSection } from "@/components/HeroSection";
 import { HyperlocalDeliveryFeature } from "@/components/HyperlocalDeliveryFeature";
 import { LogisticsMetricsGrid } from "@/components/LogisticsMetricsGrid";
 import { SellerCoverageBanner } from "@/components/SellerCoverageBanner";
-import { EMAIL, PHONE_PRIMARY, PHONE_TEL } from "@/lib/contact";
+import {
+  ADDRESS_LINE_1,
+  ADDRESS_LINE_2,
+  ADDRESS_MAPS_URL,
+  EMAIL,
+  PHONE_PRIMARY,
+  PHONE_TEL,
+} from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/xpreswings-logo.svg";
 import servicePacking from "@/assets/service-packing.jpg";
@@ -448,6 +456,19 @@ function Footer() {
           </Link>
         </nav>
         <div className="flex flex-col items-center gap-2 text-sm text-white/60 lg:items-end">
+          <a
+            href={ADDRESS_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex max-w-xs items-start gap-2 text-center transition-colors hover:text-white lg:text-right"
+          >
+            <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+            <address className="not-italic leading-relaxed">
+              {ADDRESS_LINE_1}
+              <br />
+              {ADDRESS_LINE_2}
+            </address>
+          </a>
           <a
             href={`tel:${PHONE_TEL}`}
             className="inline-flex items-center gap-2 transition-colors hover:text-white"

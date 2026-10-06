@@ -15,10 +15,18 @@ import {
   ArrowRight,
   Phone,
   Mail,
+  MapPin,
 } from "lucide-react";
 
 import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
-import { EMAIL, PHONE_PRIMARY, PHONE_TEL } from "@/lib/contact";
+import {
+  ADDRESS_LINE_1,
+  ADDRESS_LINE_2,
+  ADDRESS_MAPS_URL,
+  EMAIL,
+  PHONE_PRIMARY,
+  PHONE_TEL,
+} from "@/lib/contact";
 import { FooterSkyline } from "@/components/FooterSkyline";
 import logo from "@/assets/xpreswings-logo.svg";
 import globalNetwork from "@/assets/global-network.jpg";
@@ -542,6 +550,19 @@ function TrackPage() {
             <img src={logo} alt="XpresWings" width={1495} height={263} className="h-7 w-auto" />
           </div>
           <div className="flex flex-col items-center gap-2 text-sm text-white/60 lg:items-end">
+            <a
+              href={ADDRESS_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex max-w-xs items-start gap-2 text-center transition-colors hover:text-white lg:text-right"
+            >
+              <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+              <address className="not-italic leading-relaxed">
+                {ADDRESS_LINE_1}
+                <br />
+                {ADDRESS_LINE_2}
+              </address>
+            </a>
             <a
               href={`tel:${PHONE_TEL}`}
               className="inline-flex items-center gap-2 transition-colors hover:text-white"
