@@ -614,10 +614,6 @@
 /* Header overlay on hero (src/routes/index.tsx). */
 @layer components {
   .site-header--overlay {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    z-index: 40;
     border-bottom-color: color-mix(in oklab, #ffffff 10%, transparent);
     background: color-mix(in oklab, var(--surface-darker) 20%, transparent);
     backdrop-filter: blur(10px);

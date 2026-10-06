@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Plane,
@@ -151,26 +151,35 @@ const navLinks = [
 
 function Header({ overlay = false }: { overlay?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const closeMenu = () => setMenuOpen(false);
+  const showOverlay = overlay && !scrolled;
+
+  useEffect(() => {
+    if (!overlay) return;
+
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overlay]);
 
   const navLinkClass = cn(
     "site-header__nav-link transition-colors hover:text-foreground",
-    !overlay && "text-muted-foreground",
+    !showOverlay && "text-muted-foreground",
   );
 
   return (
     <header
       className={cn(
-        "z-50 border-b backdrop-blur-md",
-        overlay
-          ? "site-header--overlay absolute inset-x-0 top-0"
-          : "sticky top-0 border-border bg-background/90",
+        "sticky top-0 z-50 border-b backdrop-blur-md",
+        showOverlay ? "site-header--overlay" : "border-border bg-background/90",
         menuOpen && "site-header--menu-open",
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-18 sm:px-6">
         <a href="#top" className="flex shrink-0 items-center" onClick={closeMenu}>
-          <span className={cn("rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2", overlay && "bg-white")}>
+          <span className={cn("rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2", showOverlay && "bg-white")}>
             <img
               src={logo}
               alt="XpresWings home"
@@ -195,7 +204,7 @@ function Header({ overlay = false }: { overlay?: boolean }) {
             href={`tel:${PHONE_TEL}`}
             className={cn(
               "site-header__phone hidden items-center gap-2 text-sm font-semibold md:flex",
-              overlay ? "text-white" : "text-foreground",
+              showOverlay ? "text-white" : "text-foreground",
             )}
           >
             <Phone className="size-4 text-primary" />
@@ -213,7 +222,7 @@ function Header({ overlay = false }: { overlay?: boolean }) {
             type="button"
             className={cn(
               "site-header__menu-btn lg:hidden",
-              overlay && "site-header__menu-btn--overlay",
+              showOverlay && "site-header__menu-btn--overlay",
             )}
             aria-expanded={menuOpen}
             aria-controls="mobile-primary-nav"
@@ -228,7 +237,7 @@ function Header({ overlay = false }: { overlay?: boolean }) {
         <nav
           id="mobile-primary-nav"
           aria-label="Mobile primary"
-          className={cn("site-header__mobile lg:hidden", overlay && "site-header__mobile--overlay")}
+          className={cn("site-header__mobile lg:hidden", showOverlay && "site-header__mobile--overlay")}
         >
           {navLinks.map((link) => (
             <a key={link.href} href={link.href} className="site-header__mobile-link" onClick={closeMenu}>
@@ -501,8 +510,8 @@ function Index() {
       <a href="#main" className="skip-link">
         Skip to main content
       </a>
-      <div className="relative">
-        <Header overlay />
+      <Header overlay />
+      <div className="-mt-16 sm:-mt-18">
         <HeroSection />
       </div>
       <main id="main">
