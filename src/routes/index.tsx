@@ -8,6 +8,7 @@ import {
   Package,
   Briefcase,
   Phone,
+  Mail,
   ShieldCheck,
   Clock,
   Headset,
@@ -25,6 +26,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { HyperlocalDeliveryFeature } from "@/components/HyperlocalDeliveryFeature";
 import { LogisticsMetricsGrid } from "@/components/LogisticsMetricsGrid";
 import { SellerCoverageBanner } from "@/components/SellerCoverageBanner";
+import { EMAIL, PHONE_PRIMARY, PHONE_TEL } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/xpreswings-logo.svg";
 import servicePacking from "@/assets/service-packing.jpg";
@@ -51,9 +53,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-const PHONE_PRIMARY = "88864 44940";
-const PHONE_TEL = "+918886444940";
 
 const services = [
   {
@@ -233,6 +232,9 @@ function Header({ overlay = false }: { overlay?: boolean }) {
           </Link>
           <a href={`tel:${PHONE_TEL}`} className="site-header__mobile-link" onClick={closeMenu}>
             Call {PHONE_PRIMARY}
+          </a>
+          <a href={`mailto:${EMAIL}`} className="site-header__mobile-link" onClick={closeMenu}>
+            {EMAIL}
           </a>
         </nav>
       ) : null}
@@ -445,9 +447,25 @@ function Footer() {
             Track
           </Link>
         </nav>
-        <p className="text-sm text-white/50">
-          © {new Date().getFullYear()} XpresWings International Courier Services
-        </p>
+        <div className="flex flex-col items-center gap-2 text-sm text-white/60 lg:items-end">
+          <a
+            href={`tel:${PHONE_TEL}`}
+            className="inline-flex items-center gap-2 transition-colors hover:text-white"
+          >
+            <Phone className="size-4 text-primary" />
+            {PHONE_PRIMARY}
+          </a>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="inline-flex items-center gap-2 transition-colors hover:text-white"
+          >
+            <Mail className="size-4 text-primary" />
+            {EMAIL}
+          </a>
+          <p className="text-white/50">
+            © {new Date().getFullYear()} XpresWings International Courier Services
+          </p>
+        </div>
       </div>
       <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-4 pt-8 sm:px-6">
         <AnimatedDeliveryRoute />

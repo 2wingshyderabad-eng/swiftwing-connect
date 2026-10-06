@@ -14,9 +14,11 @@ import {
   Scale,
   ArrowRight,
   Phone,
+  Mail,
 } from "lucide-react";
 
 import { AnimatedDeliveryRoute } from "@/components/AnimatedDeliveryRoute";
+import { EMAIL, PHONE_PRIMARY, PHONE_TEL } from "@/lib/contact";
 import { FooterSkyline } from "@/components/FooterSkyline";
 import logo from "@/assets/xpreswings-logo.svg";
 import globalNetwork from "@/assets/global-network.jpg";
@@ -361,10 +363,17 @@ function TrackPage() {
                 Please check the number on your booking receipt. XpresWings tracking numbers start
                 with "XW". Need help? Call us at{" "}
                 <a
-                  href="tel:+918886444940"
+                  href={`tel:${PHONE_TEL}`}
                   className="rounded-xs font-semibold text-brand-strong underline underline-offset-4"
                 >
-                  88864 44940
+                  {PHONE_PRIMARY}
+                </a>{" "}
+                or email{" "}
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="rounded-xs font-semibold text-brand-strong underline underline-offset-4"
+                >
+                  {EMAIL}
                 </a>
                 .
               </p>
@@ -474,13 +483,22 @@ function TrackPage() {
                 <p className="text-center font-medium text-accent-foreground sm:text-left">
                   Questions about this shipment? Our team is happy to help.
                 </p>
-                <a
-                  href="tel:+918886444940"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
-                >
-                  <Phone className="size-4" />
-                  Call 88864 44940
-                </a>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <a
+                    href={`tel:${PHONE_TEL}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
+                  >
+                    <Phone className="size-4" />
+                    Call {PHONE_PRIMARY}
+                  </a>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-primary bg-background px-6 py-3 text-sm font-semibold text-foreground shadow-sm transition-transform hover:scale-[1.03]"
+                  >
+                    <Mail className="size-4 text-primary" />
+                    {EMAIL}
+                  </a>
+                </div>
               </div>
             </div>
           )}
@@ -501,7 +519,7 @@ function TrackPage() {
                 {
                   icon: Phone,
                   title: "Need help?",
-                  desc: "Call 88864 44940 and our team will locate your shipment.",
+                  desc: `Call ${PHONE_PRIMARY} or email ${EMAIL} and our team will locate your shipment.`,
                 },
               ].map((c) => (
                 <div key={c.title} className="card-lift rounded-2xl border bg-card p-8 text-center">
@@ -523,9 +541,25 @@ function TrackPage() {
           <div className="rounded-xl bg-white px-4 py-2.5">
             <img src={logo} alt="XpresWings" width={1495} height={263} className="h-7 w-auto" />
           </div>
-          <p className="text-sm text-white/50">
-            © {new Date().getFullYear()} XpresWings International Courier Services
-          </p>
+          <div className="flex flex-col items-center gap-2 text-sm text-white/60 lg:items-end">
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="inline-flex items-center gap-2 transition-colors hover:text-white"
+            >
+              <Phone className="size-4 text-primary" />
+              {PHONE_PRIMARY}
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="inline-flex items-center gap-2 transition-colors hover:text-white"
+            >
+              <Mail className="size-4 text-primary" />
+              {EMAIL}
+            </a>
+            <p className="text-white/50">
+              © {new Date().getFullYear()} XpresWings International Courier Services
+            </p>
+          </div>
         </div>
         <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-8 sm:px-6">
           <AnimatedDeliveryRoute />
